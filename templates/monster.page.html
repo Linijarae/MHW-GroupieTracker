@@ -1,0 +1,18 @@
+{{define "Monster"}}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails monstres</title>
+</head>
+
+<body>
+    <h1>{{.Name}} | {{.Id}}</h1>
+    <p>{{.Species}} - {{.Type}}</p>
+    <img src="{{.Image}}" alt="Image du monstre {{.Name}} du jeu">
+</body>
+
+</html>
+{{end}}
