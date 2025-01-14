@@ -37,3 +37,13 @@ func PageDetailsMonster(w http.ResponseWriter, r *http.Request) {
 	}
 	temp.Temp.ExecuteTemplate(w, "Monster", Monster)
 }
+
+func PasMain(w http.ResponseWriter, r *http.Request) {
+	/*listMonster, listMonsterCode, listMonsterErr := */services.PasMainMonster()
+	
+	/*if listMonsterErr != nil {
+		http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
+		return
+	}
+	temp.Temp.ExecuteTemplate(w, "listMonster", listMonster)*/
+}
