@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"exemple/controllers"
+	"mhw/src/controllers"
 	"net/http"
 )
 

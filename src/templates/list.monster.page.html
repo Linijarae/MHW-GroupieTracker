@@ -1,0 +1,28 @@
+{{define "listMonster"}}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/css/accueil.css">
+    <title>Liste des monstres</title>
+</head>
+
+<body>
+    <h1>List of Monsters</h1>
+    <div class="monster-grid">
+        {{range .Monsters}}
+        <div class="monster-card">
+            <img src="/src/assets/img/{{.Id}}.webp" alt="Image de {{.Name}}" class="monster-img">
+            <h2>{{.Name}}</h2>
+            <p>Espèce : {{.Species}}</p>
+            <p>Type : {{.Type}}</p>
+            <a href="/monster?id={{.Id}}">Consulter</a>
+        </div>
+        {{end}}
+    </div>
+
+</body>
+</html>
+{{end}}

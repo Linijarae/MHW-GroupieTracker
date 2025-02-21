@@ -1,3 +1,3 @@
-module exemple
+module mhw
 
 go 1.22.5

@@ -1,0 +1,91 @@
+/* Appliquer un style global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Conteneur de la grille */
+.monster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
+    gap: 20px; /* Espacement entre les cartes */
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Style des cartes de monstres */
+.monster-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.monster-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Liens stylisés */
+.monster-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.monster-card a:hover {
+    background: #0056b3;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.monster-img {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.pagination-btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive : 2 colonnes sur petits écrans */
+@media (max-width: 800px) {
+    .monster-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive : 1 colonne sur mobiles */
+@media (max-width: 500px) {
+    .monster-grid {
+        grid-template-columns: 1fr;
+    }
+}

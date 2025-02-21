@@ -20,41 +20,37 @@ type Monsters struct {
 	Elements []string `json:"elements"`
 }
 
-func GetListMonster() (ListMonster, int, error) {
-	url := "https://mhw-db.com/monsters"
-	method := "GET"
-	_client := &http.Client{Timeout: time.Second * 5,}
-	req, err := http.NewRequest(method, url, nil)
-	
-	if err != nil {
-		return ListMonster{}, 500, fmt.Errorf("erreur Requête - Une erreur lors de la préparation de la requête 'GetListMonster' : %v", err.Error())
-	}
+func GetListMonster() ([]Monsters, int, error) {
+    url := "https://mhw-db.com/monsters"
+    client := &http.Client{Timeout: time.Second * 5}
 
-	res, err := _client.Do(req)
-	if err != nil {
-		return ListMonster{}, 500, fmt.Errorf("erreur Requête - Une erreur s'est produite lors de l'exécution de la requête 'GetListMonster' : %v", err.Error())
-	}
-	defer res.Body.Close()
+    req, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+        return nil, 500, fmt.Errorf("erreur Requête - %v", err)
+    }
 
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-	  fmt.Println(err)
-	  return ListMonster{}, 500, fmt.Errorf("erreur Body - Une erreur s'est produite lors du body body body : %v", err.Error())
-	}
-	fmt.Println(string(body))
+    res, err := client.Do(req)
+    if err != nil {
+        return nil, 500, fmt.Errorf("erreur Exécution Requête - %v", err)
+    }
+    defer res.Body.Close()
 
-	if res.StatusCode != http.StatusOK {
-		return ListMonster{}, res.StatusCode, fmt.Errorf("erreur réponse - code %s", res.Status)
-	}
+    if res.StatusCode != http.StatusOK {
+        return nil, res.StatusCode, fmt.Errorf("erreur Réponse - code %s", res.Status)
+    }
 
-	var list ListMonster
-	decodeErr := json.NewDecoder(res.Body).Decode(&list)
-	if decodeErr != nil {
-		return ListMonster{}, 500, fmt.Errorf("erreur Décodage Des Données : Une erreur s'est produite lors de la lecture des données 'GetListMonster' : %v", decodeErr.Error())
-	}
-		
-	return list, res.StatusCode, nil
+    var monsters []Monsters
+    body, err := io.ReadAll(res.Body)
+    if err != nil {
+        return nil, 500, fmt.Errorf("erreur Lecture Body - %v", err)
+    }
 
+    err = json.Unmarshal(body, &monsters)
+    if err != nil {
+        return nil, 500, fmt.Errorf("erreur Décodage JSON - %v", err)
+    }
+
+    return monsters, res.StatusCode, nil
 }
 
 func GetMonsterById(id int) (Monsters, int, error) {

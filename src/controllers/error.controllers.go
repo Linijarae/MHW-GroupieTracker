@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	temp "exemple/templates"
+	temp "mhw/src/templates"
 	"net/http"
 )
 
