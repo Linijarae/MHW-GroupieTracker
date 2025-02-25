@@ -5,13 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/css/accueil.css">
     <title>Détails monstres</title>
 </head>
 
 <body>
+    <header>
+        <img src="/src/assets/img/logo.png" alt="Logo du jeu" class="logo">
+        <nav class="entete">
+            <a href="/accueil" class="header-button">Accueil</a>
+            <a href="/favoris" class="header-button">Favoris</a>
+            <a href="/about" class="header-button">A propos</a>
+        </nav>
+        <div class="search-container">
+            <input type="text" placeholder="Rechercher..." class="search-bar">
+        </div>
+    </header>
     <h1>{{.Name}} | {{.Id}}</h1>
     <p>{{.Species}} - {{.Type}}</p>
-    <img src="{{.Image}}" alt="Image du monstre {{.Name}} du jeu">
+    <img src="/src/assets/img/{{.Id}}.png" alt="Image du monstre {{.Name}} du jeu">
 </body>
 
 </html>

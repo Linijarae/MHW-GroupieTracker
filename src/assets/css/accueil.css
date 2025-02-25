@@ -96,18 +96,45 @@ body {
     margin-left: 20px;
 }
 
+
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    height: 100px;
 }
 
-.entete{
+.entete {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
+}
+
+.header-button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.header-button:hover {
+    background-color: #555;
+}
+
+.search-container {
+    display: flex;
     align-items: center;
-    padding: 10px;
-    width: 80%;
-    margin-right: 20%;
+}
+
+.search-bar {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    width: 200px;
+    margin-left: 20px;
 }
