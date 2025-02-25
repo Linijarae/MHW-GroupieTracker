@@ -9,21 +9,18 @@ import (
 )
 
 func PageListMonster(w http.ResponseWriter, r *http.Request) {
-    listMonster, listMonsterCode, listMonsterErr := services.GetListMonster()
+	listMonster, listMonsterCode, listMonsterErr := services.GetListMonster()
 
-    if listMonsterErr != nil {
-        fmt.Println(listMonsterErr.Error())
-        fmt.Println(listMonsterCode)
-        http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
-        return
-    }
-    
-    // Correction ici : utiliser listMonster directement
-    temp.Temp.ExecuteTemplate(w, "listMonster", map[string]interface{}{
-        "Monsters": listMonster,
-    })
+	if listMonsterErr != nil {
+		fmt.Println(listMonsterErr.Error())
+		fmt.Println(listMonsterCode)
+		http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
+		return
+	}
+	temp.Temp.ExecuteTemplate(w, "listMonster", map[string]interface{}{
+		"Monsters": listMonster,
+	})
 }
-
 
 func PageDetailsMonster(w http.ResponseWriter, r *http.Request) {
 	queryId := r.FormValue("id")
@@ -44,12 +41,10 @@ func PageDetailsMonster(w http.ResponseWriter, r *http.Request) {
 	temp.Temp.ExecuteTemplate(w, "Monster", Monster)
 }
 
-func PasMain(w http.ResponseWriter, r *http.Request) {
-	/*listMonster, listMonsterCode, listMonsterErr := */ services.PasMainMonster()
+func About(w http.ResponseWriter, r *http.Request) {
+	temp.Temp.ExecuteTemplate(w, "About", nil)
+}
 
-	/*if listMonsterErr != nil {
-		http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
-		return
-	}
-	temp.Temp.ExecuteTemplate(w, "listMonster", listMonster)*/
+func Favoris(w http.ResponseWriter, r *http.Request) {
+	temp.Temp.ExecuteTemplate(w, "Favoris", nil)
 }

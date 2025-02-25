@@ -10,11 +10,19 @@
 </head>
 
 <body>
+    <header>
+        <img src="/src/assets/img/logo.png" alt="Logo du jeu" class="logo">
+        <nav class="entete">
+                <a href="/accueil">Accueil</a>
+                <a href="/favoris">Favoris</a>
+                <a href="/about">A propos</a>
+        </nav>
+    </header>
     <h1>List of Monsters</h1>
     <div class="monster-grid">
         {{range .Monsters}}
         <div class="monster-card">
-            <img src="/src/assets/img/{{.Id}}.webp" alt="Image de {{.Name}}" class="monster-img">
+            <img src="/src/assets/img/{{.Id}}.png" alt="Image de {{.Name}}" class="monster-img">
             <h2>{{.Name}}</h2>
             <p>Espèce : {{.Species}}</p>
             <p>Type : {{.Type}}</p>
@@ -24,5 +32,6 @@
     </div>
 
 </body>
+
 </html>
 {{end}}

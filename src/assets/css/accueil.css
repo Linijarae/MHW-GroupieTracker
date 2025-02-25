@@ -1,7 +1,7 @@
 /* Appliquer un style global */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #616161;
     text-align: center;
     margin: 0;
     padding: 20px;
@@ -88,4 +88,26 @@ body {
     .monster-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.logo {
+    width: 260px;
+    height: 140px;
+    margin-left: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.entete{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 80%;
+    margin-right: 20%;
 }
