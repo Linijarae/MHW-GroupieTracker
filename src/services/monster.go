@@ -21,36 +21,36 @@ type Monsters struct {
 }
 
 func GetListMonster() ([]Monsters, int, error) {
-    url := "https://mhw-db.com/monsters"
-    client := &http.Client{Timeout: time.Second * 5}
+	url := "https://mhw-db.com/monsters"
+	client := &http.Client{Timeout: time.Second * 5}
 
-    req, err := http.NewRequest("GET", url, nil)
-    if err != nil {
-        return nil, 500, fmt.Errorf("erreur Requête - %v", err)
-    }
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, 500, fmt.Errorf("erreur Requête - %v", err)
+	}
 
-    res, err := client.Do(req)
-    if err != nil {
-        return nil, 500, fmt.Errorf("erreur Exécution Requête - %v", err)
-    }
-    defer res.Body.Close()
+	res, err := client.Do(req)
+	if err != nil {
+		return nil, 500, fmt.Errorf("erreur Exécution Requête - %v", err)
+	}
+	defer res.Body.Close()
 
-    if res.StatusCode != http.StatusOK {
-        return nil, res.StatusCode, fmt.Errorf("erreur Réponse - code %s", res.Status)
-    }
+	if res.StatusCode != http.StatusOK {
+		return nil, res.StatusCode, fmt.Errorf("erreur Réponse - code %s", res.Status)
+	}
 
-    var monsters []Monsters
-    body, err := io.ReadAll(res.Body)
-    if err != nil {
-        return nil, 500, fmt.Errorf("erreur Lecture Body - %v", err)
-    }
+	var monsters []Monsters
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, 500, fmt.Errorf("erreur Lecture Body - %v", err)
+	}
 
-    err = json.Unmarshal(body, &monsters)
-    if err != nil {
-        return nil, 500, fmt.Errorf("erreur Décodage JSON - %v", err)
-    }
+	err = json.Unmarshal(body, &monsters)
+	if err != nil {
+		return nil, 500, fmt.Errorf("erreur Décodage JSON - %v", err)
+	}
 
-    return monsters, res.StatusCode, nil
+	return monsters, res.StatusCode, nil
 }
 
 func GetMonsterById(id int) (Monsters, int, error) {
@@ -79,31 +79,4 @@ func GetMonsterById(id int) (Monsters, int, error) {
 	}
 
 	return monster, 200, nil
-}
-
-func PasMainMonster() {
-
-	url := "https://mhw-db.com/monsters"
-	method := "GET"
-
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, nil)
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	res, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(string(body))
 }

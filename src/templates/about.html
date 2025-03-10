@@ -19,6 +19,53 @@
             <input type="text" placeholder="Rechercher..." class="search-bar">
         </div>
     </header>
+    <div class="section">
+        <h2>Résumé sur les API</h2>
+        <p>Une <strong>API (Application Programming Interface)</strong> est un ensemble de règles et de protocoles permettant à des applications de communiquer entre elles. Elle définit les méthodes et formats de données qu’un programme peut utiliser pour interagir avec un autre service.</p>
+        <p>Les API peuvent être <strong>RESTful</strong> (utilisant HTTP et des formats comme JSON), <strong>GraphQL</strong>, ou encore <strong>WebSockets</strong> selon le besoin. Elles sont largement utilisées pour récupérer et envoyer des données vers des bases de données, des services web ou des applications tierces.</p>
+    </div>
+
+    <div class="section">
+        <h2>Utilisation de l'API MHW-DB</h2>
+        <p>L'API MHW-DB fournit des données exhaustives sur le jeu <em>Monster Hunter: World</em>. Elle offre des points de terminaison pour accéder à diverses informations telles que :</p>
+        <ul>
+            <li>Les afflictions (<em>ailments</em>)</li>
+            <li>Les pièces d'armure (<em>armor</em>)</li>
+            <li>Les ensembles d'armure (<em>armor sets</em>)</li>
+            <li>Les décorations (<em>decorations</em>)</li>
+            <li>Les événements (<em>events</em>)</li>
+            <li>Les objets (<em>items</em>)</li>
+            <li>Les lieux (<em>locations</em>)</li>
+            <li>Les monstres (<em>monsters</em>)</li>
+            <li>Les compétences (<em>skills</em>)</li>
+            <li>Les armes (<em>weapons</em>)</li>
+        </ul>
+        <p>Pour accéder à ces données, il suffit d'envoyer des requêtes HTTP GET aux points de terminaison correspondants. Par exemple, pour obtenir la liste de toutes les afflictions :</p>
+        <div class="code-snippet">
+            <code>GET https://mhw-db.com/ailments</code>
+        </div>
+        <p>Pour obtenir les informations en français :</p>
+        <p>Pour plus de détails, consultez la <a href="https://docs.mhw-db.com">documentation officielle de l'API MHW-DB</a>.</p>
+    </div>
+
+    <div class="section">
+        <h2>Difficultés rencontrées lors de l'utilisation de l'API en Golang</h2>
+        <p>Lors de l'intégration de l'API MHW-DB en utilisant Golang, plusieurs complications sont survenues :</p>
+        <ul>
+            <li><strong>Apprentissage de l'API MHW :</strong> Malgré une grande facilité d'utilisation, et le fait qu'elle soit une API instinctive, certains endpoints étaient compliqué à obtenir. J'ai par exemple passé beaucoup de temps à réussir à obtenir l'endpoint des monstres d'un seul élément particulier.</li>
+            <li><strong>Manipulation des structures JSON :</strong> Il faut des structures Go correspondant exactement aux champs JSON.</li>
+            <li><strong>Gestion des clients HTTP :</strong> Mauvaise gestion peut entraîner des fuites de ressources et des problèmes de performance.</li>
+            <li><strong>Concurrence et goroutines :</strong> Une mauvaise gestion peut causer des blocages ou des erreurs.</li>
+        </ul>
+        <p>Pour éviter ces problèmes :</p>
+        <ul>
+            <li>Implémenter une gestion robuste des erreurs.</li>
+            <li>Utiliser des bibliothèques adaptées pour le parsing JSON.</li>
+            <li>Configurer correctement le client HTTP.</li>
+            <li>Gérer proprement les goroutines pour éviter les fuites.</li>
+        </ul>
+    </div>
+
 </body>
 </html>
 {{end}}

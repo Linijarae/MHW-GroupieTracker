@@ -48,3 +48,4 @@ func About(w http.ResponseWriter, r *http.Request) {
 func Favoris(w http.ResponseWriter, r *http.Request) {
 	temp.Temp.ExecuteTemplate(w, "Favoris", nil)
 }
+

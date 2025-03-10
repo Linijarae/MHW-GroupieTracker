@@ -138,3 +138,22 @@ header {
     width: 200px;
     margin-left: 20px;
 }
+
+.section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: #333;
+}
+
+.code-snippet {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ccc;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    overflow-x: auto;
+}

@@ -17,9 +17,10 @@
             <a href="/favoris" class="header-button">Favoris</a>
             <a href="/about" class="header-button">A propos</a>
         </nav>
-        <div class="search-container">
-            <input type="text" placeholder="Rechercher..." class="search-bar">
-        </div>
+        <form action="/monsters" method="GET" class="search-container">
+            <input type="text" name="search" placeholder="Rechercher..." class="search-bar">
+            <button type="submit">🔍</button>
+        </form>
     </header>
     <h1>List of Monsters</h1>
     <div class="monster-grid">
