@@ -7,7 +7,8 @@ import (
 )
 
 func InitServe() {
-	
+
+	http.HandleFunc("/search", controllers.SearchMonsters)
 	http.HandleFunc("/error", controllers.ErrorController)
 	http.HandleFunc("/", controllers.PageListMonster)
 	http.HandleFunc("/monster", controllers.PageDetailsMonster)

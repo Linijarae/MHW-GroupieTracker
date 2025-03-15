@@ -1,12 +1,14 @@
-{{define "Favoris"}}
+{{define "recherche"}}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/assets/css/accueil.css">
-    <title>Favoris</title>
+    <title>Recherche</title>
 </head>
+
 <body>
     <header>
         <img src="/src/assets/img/logo.png" alt="Logo du jeu" class="logo">
@@ -15,10 +17,25 @@
             <a href="/favoris" class="header-button">Favoris</a>
             <a href="/about" class="header-button">A propos</a>
         </nav>
-        <form action="/monsters" method="GET" class="search-container">
+        <form action="/search" method="GET" class="search-container">
             <input type="text" name="search" placeholder="Rechercher..." class="search-bar">
             <button type="submit">🔍</button>
+        </form>
     </header>
+    <h1>Résultat de votre recherche :</h1>
+    <div class="monster-grid">
+        {{range .Monsters}}
+        <div class="monster-card">
+            <img src="/src/assets/img/{{.Id}}.png" alt="Image de {{.Name}}" class="monster-img">
+            <h2>{{.Name}}</h2>
+            <p>Espèce : {{.Species}}</p>
+            <p>Type : {{.Type}}</p>
+            <a href="/monster?id={{.Id}}">Consulter</a>
+        </div>
+        {{end}}
+    </div>
+
 </body>
+
 </html>
 {{end}}

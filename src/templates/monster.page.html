@@ -6,10 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/assets/css/accueil.css">
+    <link rel="stylesheet" href="/src/assets/css/monsterpage.css">
     <title>Détails monstres</title>
 </head>
 
-<body>
+<body class="monsterbody">
     <header>
         <img src="/src/assets/img/logo.png" alt="Logo du jeu" class="logo">
         <nav class="entete">
@@ -17,14 +18,14 @@
             <a href="/favoris" class="header-button">Favoris</a>
             <a href="/about" class="header-button">A propos</a>
         </nav>
-        <div class="search-container">
-            <input type="text" placeholder="Rechercher..." class="search-bar">
-        </div>
+        <form action="/monsters" method="GET" class="search-container">
+            <input type="text" name="search" placeholder="Rechercher..." class="search-bar">
+            <button type="submit">🔍</button>
     </header>
-    <h1>{{.Name}} | {{.Id}}</h1>
-    <p>{{.Species}} - {{.Type}}</p>
-    <img src="/src/assets/img/{{.Id}}.png" alt="Image du monstre {{.Name}} du jeu">
+    <h1>{{.Name}}</h1>
+    <p><u>Espèce :</u> {{.Species}} - <u>Type :</u> {{.Type}}</p>
+    <p><u>Description :</u> {{.Description}}</p>
+    <img class="monstre" src="/src/assets/img/{{.Id}}.png" alt="Image du monstre {{.Name}} du jeu">
 </body>
-
 </html>
 {{end}}

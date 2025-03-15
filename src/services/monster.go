@@ -13,11 +13,12 @@ type ListMonster struct {
 }
 
 type Monsters struct {
-	Id       int      `json:"id"`
-	Name     string   `json:"name"`
-	Species  string   `json:"species"`
-	Type     string   `json:"type"`
-	Elements []string `json:"elements"`
+	Id          int      `json:"id"`
+	Name        string   `json:"name"`
+	Species     string   `json:"species"`
+	Type        string   `json:"type"`
+	Elements    []string `json:"elements"`
+	Description string   `json:"description"`
 }
 
 func GetListMonster() ([]Monsters, int, error) {

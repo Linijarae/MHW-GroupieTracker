@@ -1,0 +1,38 @@
+.monsterbody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, p {
+    width: 60%;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color:blue
+}
+
+p {
+    font-size: 1.2em;
+    color: #0e4700;
+}
+
+.monstre {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    width: 40%;
+    text-align: center;
+}

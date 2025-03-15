@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"fmt"
+	"html/template"
 	"mhw/src/services"
 	temp "mhw/src/templates"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func PageListMonster(w http.ResponseWriter, r *http.Request) {
@@ -48,4 +50,47 @@ func About(w http.ResponseWriter, r *http.Request) {
 func Favoris(w http.ResponseWriter, r *http.Request) {
 	temp.Temp.ExecuteTemplate(w, "Favoris", nil)
 }
+var tmpl = template.Must(template.ParseFiles("./src/templates/recherche.html"))
 
+// Handler pour la recherche de monstres
+func SearchMonsters(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("🚀 Handler SearchMonsters appelé !")
+	// Récupération des monstres depuis l'API
+	monsters, statusCode, err := services.GetListMonster()
+	if err != nil {
+		http.Error(w, err.Error(), statusCode)
+		return
+	}
+
+	// Récupération du terme de recherche
+	search := strings.ToLower(r.URL.Query().Get("search"))
+	fmt.Println("🔎 Terme recherché :", search)
+
+	// Initialiser un tableau pour stocker les monstres filtrés
+	var filteredMonsters []services.Monsters
+
+	// Si une recherche est effectuée, filtrer les résultats
+	if search != "" {
+		fmt.Println("⚠️ Aucun terme de recherche fourni")
+		for _, monster := range monsters {
+			if strings.Contains(strings.ToLower(monster.Name), search) {
+				filteredMonsters = append(filteredMonsters, monster)
+			}
+		}
+	}
+	if len(filteredMonsters) == 0 {
+		filteredMonsters = []services.Monsters{}
+	}
+	
+	fmt.Println("Nombre de monstres trouvés :", len(filteredMonsters)) 
+
+	data := struct {
+		Monsters []services.Monsters
+	}{
+		Monsters: filteredMonsters,
+	}
+	err = tmpl.ExecuteTemplate(w, "recherche", data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
