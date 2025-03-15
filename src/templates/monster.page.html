@@ -18,12 +18,12 @@
             <a href="/favoris" class="header-button">Favoris</a>
             <a href="/about" class="header-button">A propos</a>
         </nav>
-        <form action="/monsters" method="GET" class="search-container">
+        <form action="/search" method="GET" class="search-container">
             <input type="text" name="search" placeholder="Rechercher..." class="search-bar">
             <button type="submit">🔍</button>
     </header>
     <h1>{{.Name}}</h1>
-    <p><u>Espèce :</u> {{.Species}} - <u>Type :</u> {{.Type}}</p>
+    <p><u>Espèce :</u> {{.Species}}  -  <u>Type :</u> {{.Type}}  -  <u>Element :</u> {{.Elements}}</p>
     <p><u>Description :</u> {{.Description}}</p>
     <img class="monstre" src="/src/assets/img/{{.Id}}.png" alt="Image du monstre {{.Name}} du jeu">
 </body>

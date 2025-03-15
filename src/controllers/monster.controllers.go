@@ -11,17 +11,56 @@ import (
 )
 
 func PageListMonster(w http.ResponseWriter, r *http.Request) {
-	listMonster, listMonsterCode, listMonsterErr := services.GetListMonster()
+    // Paramètres de pagination
+    page := r.URL.Query().Get("page")
+    if page == "" {
+        page = "1" // Valeur par défaut à la page 1 si aucun paramètre n'est fourni
+    }
 
-	if listMonsterErr != nil {
-		fmt.Println(listMonsterErr.Error())
-		fmt.Println(listMonsterCode)
-		http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
-		return
-	}
-	temp.Temp.ExecuteTemplate(w, "listMonster", map[string]interface{}{
-		"Monsters": listMonster,
-	})
+    // Convertir la page en entier
+    currentPage, err := strconv.Atoi(page)
+    if err != nil {
+        currentPage = 1 // Si la conversion échoue, revenir à la page 1
+    }
+
+    // Nombre d'éléments par page
+    itemsPerPage := 10
+
+    listMonster, listMonsterCode, listMonsterErr := services.GetListMonster()
+    if listMonsterErr != nil {
+        fmt.Println(listMonsterErr.Error())
+        fmt.Println(listMonsterCode)
+        http.Redirect(w, r, fmt.Sprintf("/error?code=%d&message=Erreur lors de la récupération des monstres", listMonsterCode), http.StatusPermanentRedirect)
+        return
+    }
+
+    // Calculer le nombre total de pages
+    totalMonsters := len(listMonster)
+    totalPages := (totalMonsters + itemsPerPage - 1) / itemsPerPage // Calcul pour avoir la dernière page
+
+    // S'assurer que la page ne dépasse pas le nombre total de pages
+    if currentPage > totalPages {
+        currentPage = totalPages
+    }
+
+    // Calculer les monstres à afficher pour cette page
+    startIndex := (currentPage - 1) * itemsPerPage
+    endIndex := startIndex + itemsPerPage
+    if endIndex > totalMonsters {
+        endIndex = totalMonsters
+    }
+    monstersForPage := listMonster[startIndex:endIndex]
+
+    // Passer toutes les données nécessaires au template
+    temp.Temp.ExecuteTemplate(w, "listMonster", map[string]interface{}{
+        "Monsters":    monstersForPage,
+        "CurrentPage": currentPage,
+        "TotalPages":  totalPages,
+        "HasPrevious": currentPage > 1,  // Indicateur pour savoir s'il y a une page précédente
+        "HasNext":     currentPage < totalPages, // Indicateur pour savoir s'il y a une page suivante
+        "PreviousPage": currentPage - 1,  // Page précédente
+        "NextPage":     currentPage + 1,  // Page suivante
+    })
 }
 
 func PageDetailsMonster(w http.ResponseWriter, r *http.Request) {
@@ -50,11 +89,13 @@ func About(w http.ResponseWriter, r *http.Request) {
 func Favoris(w http.ResponseWriter, r *http.Request) {
 	temp.Temp.ExecuteTemplate(w, "Favoris", nil)
 }
+
 var tmpl = template.Must(template.ParseFiles("./src/templates/recherche.html"))
 
 // Handler pour la recherche de monstres
 func SearchMonsters(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("🚀 Handler SearchMonsters appelé !")
+
 	// Récupération des monstres depuis l'API
 	monsters, statusCode, err := services.GetListMonster()
 	if err != nil {
@@ -69,26 +110,23 @@ func SearchMonsters(w http.ResponseWriter, r *http.Request) {
 	// Initialiser un tableau pour stocker les monstres filtrés
 	var filteredMonsters []services.Monsters
 
-	// Si une recherche est effectuée, filtrer les résultats
-	if search != "" {
-		fmt.Println("⚠️ Aucun terme de recherche fourni")
-		for _, monster := range monsters {
-			if strings.Contains(strings.ToLower(monster.Name), search) {
-				filteredMonsters = append(filteredMonsters, monster)
-			}
+	// Filtrer uniquement les monstres qui commencent par la recherche
+	for _, monster := range monsters {
+		if search == "" || strings.HasPrefix(strings.ToLower(monster.Name), search) {
+			filteredMonsters = append(filteredMonsters, monster)
 		}
 	}
-	if len(filteredMonsters) == 0 {
-		filteredMonsters = []services.Monsters{}
-	}
-	
-	fmt.Println("Nombre de monstres trouvés :", len(filteredMonsters)) 
 
+	fmt.Println("Nombre de monstres trouvés :", len(filteredMonsters))
+
+	// Préparer les données pour le template
 	data := struct {
 		Monsters []services.Monsters
 	}{
 		Monsters: filteredMonsters,
 	}
+
+	// Exécuter le template "recherche"
 	err = tmpl.ExecuteTemplate(w, "recherche", data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

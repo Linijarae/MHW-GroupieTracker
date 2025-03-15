@@ -17,12 +17,13 @@
             <a href="/favoris" class="header-button">Favoris</a>
             <a href="/about" class="header-button">A propos</a>
         </nav>
-        <form action="/monsters" method="GET" class="search-container">
+        <form action="/search" method="GET" class="search-container">
             <input type="text" name="search" placeholder="Rechercher..." class="search-bar">
             <button type="submit">🔍</button>
         </form>
     </header>
-    <h1>List of Monsters</h1>
+
+    <h1>Liste des Monstres</h1>
     <div class="monster-grid">
         {{range .Monsters}}
         <div class="monster-card">
@@ -35,6 +36,16 @@
         {{end}}
     </div>
 
+    <!-- Pagination -->
+    <div class="pagination">
+        {{if .HasPrevious}}
+            <a href="/monsters?page={{.PreviousPage}}" class="pagination-button">⬅ Page précédente</a>
+        {{end}}
+        <span>Page {{.CurrentPage}} sur {{.TotalPages}}</span>
+        {{if .HasNext}}
+            <a href="/monsters?page={{.NextPage}}" class="pagination-button">Page suivante ➡</a>
+        {{end}}
+    </div>
 </body>
 
 </html>
